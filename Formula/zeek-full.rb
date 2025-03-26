@@ -1,21 +1,21 @@
 class ZeekFull < Formula
-  desc "Zeek is a powerful network analysis framework that is much different from the typical IDS you may know."
+  desc "Zeek is a powerful network analysis framework"
   homepage "https://www.zeek.org"
   url "https://github.com/zeek/zeek/releases/download/v7.1.1/zeek-7.1.1.tar.gz"
   sha256 "f7974900c44c322b8bee5f502d683b3dcc478687b5ac75b23e2f8a049457d683"
-  license "NOASSERTION"
+  license "BSD-3-Clause"
 
   depends_on "bison" => :build
   depends_on "cmake" => :build
   depends_on "flex" => :build
   depends_on "swig" => :build
   depends_on "c-ares"
+  depends_on "jemalloc"
   depends_on "libmaxminddb"
+  depends_on "libnode@22"
   depends_on macos: :mojave
   depends_on "openssl@3"
   depends_on "python@3.13"
-  depends_on "libnode@22"
-  depends_on "jemalloc"
 
   uses_from_macos "krb5"
   uses_from_macos "libpcap"

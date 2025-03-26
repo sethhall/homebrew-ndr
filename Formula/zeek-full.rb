@@ -12,7 +12,7 @@ class ZeekFull < Formula
   depends_on "c-ares"
   depends_on "jemalloc"
   depends_on "libmaxminddb"
-  depends_on "libnode@22"
+  depends_on "libnode@20"
   depends_on macos: :mojave
   depends_on "openssl@3"
   depends_on "python@3.13"

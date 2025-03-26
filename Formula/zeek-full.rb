@@ -1,3 +1,5 @@
+node_ver="20"
+
 class ZeekFull < Formula
   desc "Zeek is a powerful network analysis framework"
   homepage "https://www.zeek.org"
@@ -12,7 +14,7 @@ class ZeekFull < Formula
   depends_on "c-ares"
   depends_on "jemalloc"
   depends_on "libmaxminddb"
-  depends_on "libnode@20"
+  depends_on "libnode@#{node_ver}"
   depends_on macos: :mojave
   depends_on "openssl@3"
   depends_on "python@3.13"
@@ -34,20 +36,20 @@ class ZeekFull < Formula
     inreplace "auxil/spicy/hilti/toolchain/src/config.cc.in", "${CMAKE_CXX_COMPILER}", ENV.cxx
 
     system "cmake", "-S", ".", "-B", "build",
-                    "-DBROKER_DISABLE_TESTS=on",
-                    "-DINSTALL_AUX_TOOLS=on",
-                    "-DINSTALL_ZEEKCTL=on",
-                    "-DUSE_GEOIP=on",
+                    "-DBROKER_DISABLE_TESTS=true",
+                    "-DINSTALL_AUX_TOOLS=true",
+                    "-DINSTALL_ZEEKCTL=true",
+                    "-DUSE_GEOIP=true",
                     "-DCARES_ROOT_DIR=#{Formula["c-ares"].opt_prefix}",
                     "-DLibMMDB_ROOT_DIR=#{Formula["libmaxminddb"].opt_prefix}",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
-                    "-DNODEJS_ROOT_DIR=#{Formula["libnode@22"].opt_prefix}",
+                    "-DNODEJS_ROOT_DIR=#{Formula["libnode@#{node_ver}"].opt_prefix}",
                     "-DENABLE_JEMALLOC=true",
                     "-DENABLE_ZEEK_UNIT_TESTS=false",
                     "-DBROKER_DISABLE_TESTS=true",
                     "-DBROKER_DISABLE_DOC_EXAMPLES=true",
-                    "-DINSTALL_BTEST=false",
-                    "-DINSTALL_BTEST_PCAPS=false",
+                    "-DINSTALL_BTEST=true",
+                    "-DINSTALL_BTEST_PCAPS=true",
                     "-DJEMALLOC_ROOT_DIR=#{Formula["jemalloc"].opt_prefix}",
                     "-DPYTHON_EXECUTABLE=#{which("python3.13")}",
                     "-DFLEX_EXECUTABLE=#{Formula["flex"].opt_bin}/flex",

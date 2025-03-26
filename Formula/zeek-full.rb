@@ -39,7 +39,6 @@ class ZeekFull < Formula
                     "-DINSTALL_ZEEKCTL=on",
                     "-DUSE_GEOIP=on",
                     "-DCARES_ROOT_DIR=#{Formula["c-ares"].opt_prefix}",
-                    "-DCARES_LIBRARIES=#{Formula["c-ares"].opt_lib/shared_library("libcares")}",
                     "-DLibMMDB_ROOT_DIR=#{Formula["libmaxminddb"].opt_prefix}",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
                     "-DNODEJS_ROOT_DIR=#{Formula["libnode@22"].opt_prefix}",

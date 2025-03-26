@@ -12,7 +12,7 @@ class ZeekFull < Formula
   depends_on "c-ares"
   depends_on "jemalloc"
   depends_on "libmaxminddb"
-  depends_on "libnode@22"
+  depends_on "libnode@20"
   depends_on macos: :mojave
   depends_on "openssl@3"
   depends_on "python@3.13"
@@ -21,12 +21,6 @@ class ZeekFull < Formula
   uses_from_macos "libpcap"
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"
-
-  # Additional dependency
-  # resource "" do
-  #   url ""
-  #   sha256 ""
-  # end
 
   def install
     # Remove SDK paths from zeek-config. This breaks usage with other SDKs.
@@ -45,7 +39,6 @@ class ZeekFull < Formula
                     "-DINSTALL_ZEEKCTL=on",
                     "-DUSE_GEOIP=on",
                     "-DCARES_ROOT_DIR=#{Formula["c-ares"].opt_prefix}",
-                    "-DCARES_LIBRARIES=#{Formula["c-ares"].opt_lib/shared_library("libcares")}",
                     "-DLibMMDB_ROOT_DIR=#{Formula["libmaxminddb"].opt_prefix}",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
                     "-DNODEJS_ROOT_DIR=#{Formula["libnode@22"].opt_prefix}",

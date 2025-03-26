@@ -22,12 +22,6 @@ class ZeekFull < Formula
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"
 
-  # Additional dependency
-  # resource "" do
-  #   url ""
-  #   sha256 ""
-  # end
-
   def install
     # Remove SDK paths from zeek-config. This breaks usage with other SDKs.
     # https://github.com/Homebrew/homebrew-core/pull/74932

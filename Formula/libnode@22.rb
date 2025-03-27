@@ -25,9 +25,10 @@ class LibnodeAT22 < Formula
   depends_on "libnghttp2"
   depends_on "libuv"
   depends_on "openssl@3"
+  depends_on "zlib"
 
-  uses_from_macos "python", since: :catalina
-  uses_from_macos "zlib"
+  #uses_from_macos "python", since: :catalina
+  #uses_from_macos "zlib"
 
   on_macos do
     depends_on "llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1100
@@ -41,42 +42,48 @@ class LibnodeAT22 < Formula
   end
 
   def install
-    ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
+    #ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
 
     # The new linker crashed during LTO due to high memory usage.
-    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+    #ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     # make sure subprocesses spawned by make are using our Python 3
     ENV["PYTHON"] = which("python3.13")
 
+    #      --with-intl=system-icu
+    # --openssl-use-def-ca-store
+
     args = %W[
       --prefix=#{prefix}
-      --with-intl=system-icu
+      --without-intl
       --shared
-      --shared-libuv
-      --shared-nghttp2
       --shared-openssl
-      --shared-zlib
-      --shared-brotli
-      --shared-cares
-      --shared-libuv-includes=#{Formula["libuv"].include}
-      --shared-libuv-libpath=#{Formula["libuv"].lib}
-      --shared-nghttp2-includes=#{Formula["libnghttp2"].include}
-      --shared-nghttp2-libpath=#{Formula["libnghttp2"].lib}
       --shared-openssl-includes=#{Formula["openssl@3"].include}
       --shared-openssl-libpath=#{Formula["openssl@3"].lib}
-      --shared-brotli-includes=#{Formula["brotli"].include}
-      --shared-brotli-libpath=#{Formula["brotli"].lib}
-      --shared-cares-includes=#{Formula["c-ares"].include}
-      --shared-cares-libpath=#{Formula["c-ares"].lib}
-      --openssl-use-def-ca-store
+      --shared-zlib
+      --shared-zlib-includes=#{Formula["zlib"].include}
+      --shared-zlib-libpath=#{Formula["zlib"].lib}
     ]
+
+    # --shared-libuv
+    # --shared-libuv-includes=#{Formula["libuv"].include}
+    # --shared-libuv-libpath=#{Formula["libuv"].lib}
+    # --shared-nghttp2
+    # --shared-nghttp2-includes=#{Formula["libnghttp2"].include}
+    # --shared-nghttp2-libpath=#{Formula["libnghttp2"].lib}
+    # --shared-brotli
+    # --shared-brotli-includes=#{Formula["brotli"].include}
+    # --shared-brotli-libpath=#{Formula["brotli"].lib}
+    # --shared-cares
+    # --shared-cares-includes=#{Formula["c-ares"].include}
+    # --shared-cares-libpath=#{Formula["c-ares"].lib}
+
 
     # Enabling LTO errors on Linux with:
     # terminate called after throwing an instance of 'std::out_of_range'
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
-    args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
+    # args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
 
     system "./configure", *args
     system "make", "install"
@@ -88,7 +95,7 @@ class LibnodeAT22 < Formula
 
   test do
     # Make sure Mojave does not have `CC=llvm_clang`.
-    ENV.clang if OS.mac?
+    # ENV.clang if OS.mac?
 
     path = testpath/"test.js"
     path.write "console.log('hello');"

@@ -27,8 +27,8 @@ class LibnodeAT22 < Formula
   depends_on "openssl@3"
   depends_on "zlib"
 
-  #uses_from_macos "python", since: :catalina
-  #uses_from_macos "zlib"
+  # uses_from_macos "python", since: :catalina
+  # uses_from_macos "zlib"
 
   on_macos do
     depends_on "llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1100
@@ -42,15 +42,15 @@ class LibnodeAT22 < Formula
   end
 
   def install
-    #ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
+    # ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
 
     # The new linker crashed during LTO due to high memory usage.
-    #ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+    # ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     # make sure subprocesses spawned by make are using our Python 3
     ENV["PYTHON"] = which("python3.13")
 
-    #      --with-intl=system-icu
+    # --with-intl=system-icu
     # --openssl-use-def-ca-store
 
     args = %W[
@@ -77,7 +77,6 @@ class LibnodeAT22 < Formula
     # --shared-cares
     # --shared-cares-includes=#{Formula["c-ares"].include}
     # --shared-cares-libpath=#{Formula["c-ares"].lib}
-
 
     # Enabling LTO errors on Linux with:
     # terminate called after throwing an instance of 'std::out_of_range'

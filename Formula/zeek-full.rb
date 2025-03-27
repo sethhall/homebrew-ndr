@@ -9,8 +9,8 @@ class ZeekFull < Formula
   depends_on "bison" => :build
   depends_on "cmake" => :build
   depends_on "flex" => :build
-  depends_on "swig" => :build
   depends_on "ninja" => :build
+  depends_on "swig" => :build
   depends_on "c-ares"
   depends_on "jemalloc"
   depends_on "krb5"
@@ -22,10 +22,10 @@ class ZeekFull < Formula
   depends_on "python@3.13"
   depends_on "zlib"
 
-  #uses_from_macos "krb5"
-  #uses_from_macos "libpcap"
-  #uses_from_macos "libxcrypt"
-  #uses_from_macos "zlib"
+  # uses_from_macos "krb5"
+  # uses_from_macos "libpcap"
+  # uses_from_macos "libxcrypt"
+  # uses_from_macos "zlib"
 
   def install
     # Remove SDK paths from zeek-config. This breaks usage with other SDKs.

@@ -6,6 +6,7 @@ class ZeekFull < Formula
   license "BSD-3-Clause"
 
   depends_on "bison" => :build
+  depends_on "ccache" => :build
   depends_on "cmake" => :build
   depends_on "flex" => :build
   depends_on "ninja" => :build

@@ -1,4 +1,3 @@
-
 class ZeekFull < Formula
   desc "Zeek is a powerful network analysis framework"
   homepage "https://www.zeek.org"
